@@ -1,5 +1,5 @@
 # About
-We developed a Covid-19 information mobile application to give the users individualized, geolocated information about the active cases, total cases and recoveries by using environmental data and other information, while also telling the user the current temperature and pollution level. The aim of our application is to guide social awareness, response, and health security.
+We developed a Covid-19 information mobile application to give the users individualized, geolocated information about the active cases, total cases and recoveries by using open-source environmental data to distinguish among environmental factors like temperature and pollution level. Based on this information we suggest type of mask users can use. The aim of our application is to guide social awareness, response, and health security.
 
 # Screenshot
 <p align = "center">
