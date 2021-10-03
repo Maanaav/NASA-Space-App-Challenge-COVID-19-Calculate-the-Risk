@@ -27,3 +27,6 @@ var g_globalcases;
 var g_globalactive;
 var g_globaldeath;
 var g_globalrecovered;
+
+var g_maskType;
+var g_safe;

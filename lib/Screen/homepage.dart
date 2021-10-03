@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:covid_19/Global/globals.dart' as globals;
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class Homepage extends StatefulWidget {
   Homepage({Key? key}) : super(key: key);
@@ -181,7 +182,7 @@ class _HomepageState extends State<Homepage> {
                                   child: const Text('Know more?'),
                                 )
                               ) : Container(
-                                  margin: EdgeInsets.only(top: 20),
+                                  margin: EdgeInsets.only(top: 10),
                                   child: Column(
                                     children: [
                                       Text("Today active cases: "+ globals.g_todayCases),
@@ -192,7 +193,28 @@ class _HomepageState extends State<Homepage> {
                                         margin: const EdgeInsets.only(top: 20),
                                         child: ElevatedButton(
                                           style: raisedButtonStyle,
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Alert(
+                                              context: context,
+                                              // type: AlertType.error,
+                                              title: "Mask suggestions",
+                                              image: globals.g_maskType == "Cloth mask" ? Image.asset("assets/cloth.png") :
+                                              globals.g_maskType == "Surgical mask" ? Image.asset("assets/surgical.png") :
+                                              Image.asset("assets/kn95.png"),
+                                              desc: "It is ${globals.g_safe} to go out, \n We suggest you to wear ${globals.g_maskType} in ${globals.adminstative_area}",
+                                              buttons: [
+                                                DialogButton(
+                                                  gradient: const LinearGradient(colors: [
+                                                    Color.fromRGBO(0, 0, 0, 1.0),
+                                                    Color.fromRGBO(0, 0, 0, 1.0)
+                                                  ]),
+                                                  child: const Text("COOL", style: TextStyle(color: Colors.white, fontSize: 20),),
+                                                  onPressed: () => Navigator.pop(context),
+                                                  width: 120,
+                                                )
+                                              ],
+                                            ).show();
+                                          },
                                           child: const Text('Get safe >'),
                                         ),
                                       ),

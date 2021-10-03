@@ -1,8 +1,10 @@
 import 'package:covid_19/Screen/checkin.dart';
 import 'package:covid_19/Screen/global.dart';
+import 'package:covid_19/Screen/guidelines.dart';
 import 'package:covid_19/Screen/homepage.dart';
 import 'package:covid_19/Screen/lockdown.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -55,6 +57,8 @@ class _landingpageState extends State<landingpage> {
 
   late String stringResponseGlobal;
   late Map listResponseGlobal;
+
+  late String maskType;
 
   Future apicall() async {
     http.Response response;
@@ -146,6 +150,33 @@ class _landingpageState extends State<landingpage> {
         });
       }
 
+      // --------------
+
+      var activeCases = int.parse(globals.g_active);
+
+      if (activeCases <= 730 || (aqiScore <= 0 && aqiScore <= 100)) {
+        maskType = "Cloth mask";
+      } else if ((activeCases >= 731 && activeCases <= 1095) ||
+          (aqiScore <= 101 && aqiScore <= 200)) {
+        maskType = "Surgical mask";
+      } else if ((activeCases >= 1096 && activeCases <= 1825) ||
+          (aqiScore <= 151 && aqiScore <= 200)) {
+        maskType = "N95 mask";
+      } else if ((activeCases >= 1826) || (aqiScore <= 201 && aqiScore <= 500)) {
+        maskType = "Double mask";
+      }
+
+      if (int.parse(globals.g_todayActive) > -100){
+        globals.g_safe = "safe";
+      }
+      else{
+        globals.g_safe = "not safe";
+      }
+
+      setState(() {
+        globals.g_maskType = maskType;
+        EasyLoading.dismiss();
+      });
     }
   }
 
@@ -189,6 +220,7 @@ class _landingpageState extends State<landingpage> {
 
   void initState() {
     super.initState();
+    EasyLoading.show(status: 'Getting location...');
     get_location();
     apicall();
   }
@@ -249,7 +281,7 @@ class _landingpageState extends State<landingpage> {
                           child: InkWell(
                             splashColor: Colors.white,
                             onTap: () {
-                              print("Yes");
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => guidelines()));
                             },
                             child: Stack(
                               children: [
