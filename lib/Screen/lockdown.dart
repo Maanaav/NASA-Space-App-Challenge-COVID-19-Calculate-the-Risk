@@ -197,7 +197,7 @@ class _lockdownState extends State<lockdown> {
                                   Container(
                                     margin: const EdgeInsets.only(top: 20),
                                     child: Text(
-                                      "1732 People voted for lockdown",
+                                      "1732 People reported lockdown",
                                       style: GoogleFonts.lato(
                                           textStyle: const TextStyle(
                                               color: Colors.black,
