@@ -7,23 +7,23 @@ class Card1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 20),
       alignment: Alignment.center,
       height: 600,
       width: 350,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
           color: Colors.greenAccent, borderRadius: BorderRadius.circular(30)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(top: 20),
+            margin: const EdgeInsets.only(top: 20),
             child: Text(
               cardData[cardIndex]['subheading'] as String,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
+              style: const TextStyle(
+                color: Colors.black,
                 fontSize: 40,
                 fontFamily: "Source Sans Pro",
                 fontWeight: FontWeight.w900,
@@ -31,19 +31,25 @@ class Card1 extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(bottom: 20),
+            margin: const EdgeInsets.only(bottom: 20),
             child: Image.asset(cardData[cardIndex]['photo'] as String),
             height: 200,
             width: 200,
           ),
           ...(cardData[cardIndex]['pointers'] as List<Map<String, Object>>)
               .map((pointers) {
-            return Text(
-              pointers['text'] as String,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontFamily: "Roboto",
+            return Container(
+              padding: const EdgeInsets.only(left: 20, top: 2),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  pointers['text'] as String,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontFamily: "Roboto",
+                  ),
+                ),
               ),
             );
           }).toList()

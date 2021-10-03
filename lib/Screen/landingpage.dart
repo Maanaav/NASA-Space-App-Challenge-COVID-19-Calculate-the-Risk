@@ -1,5 +1,4 @@
 import 'package:covid_19/Screen/checkin.dart';
-import 'package:covid_19/Screen/global.dart';
 import 'package:covid_19/Screen/guidelines.dart';
 import 'package:covid_19/Screen/homepage.dart';
 import 'package:covid_19/Screen/lockdown.dart';
@@ -175,6 +174,7 @@ class _landingpageState extends State<landingpage> {
 
       setState(() {
         globals.g_maskType = maskType;
+        myNumber = k_m_b_generator((globals.g_globalcases));
         EasyLoading.dismiss();
       });
     }
@@ -217,6 +217,22 @@ class _landingpageState extends State<landingpage> {
       apicall();
     }catch(err){}
   }
+
+  String k_m_b_generator(num) {
+    if (num > 999 && num < 99999) {
+      return "${(num / 1000).toStringAsFixed(1)} K";
+    } else if (num > 99999 && num < 999999) {
+      return "${(num / 1000).toStringAsFixed(0)} K";
+    } else if (num > 999999 && num < 999999999) {
+      return "${(num / 1000000).toStringAsFixed(1)} M";
+    } else if (num > 999999999) {
+      return "${(num / 1000000000).toStringAsFixed(1)} B";
+    } else {
+      return num.toString();
+    }
+  }
+
+  var myNumber = "0";
 
   void initState() {
     super.initState();
@@ -418,42 +434,7 @@ class _landingpageState extends State<landingpage> {
 
                     Row(
                       children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width / 2 - 10,
-                          height: 200,
-                          child: Card(
-                            color: Colors.white,
-                            elevation: 3,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: InkWell(
-                              splashColor: Colors.greenAccent,
-                              onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => global()));
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Image.asset("assets/Global.png", height: 130),
-                                  Container(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Text(
-                                      "Global",
-                                      style: GoogleFonts.lato(
-                                          textStyle: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 18,
-                                              fontWeight:
-                                              FontWeight.w500)),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+
                         Container(
                           margin: EdgeInsets.only(top:30),
                           width: MediaQuery.of(context).size.width / 2 - 10,
@@ -478,6 +459,39 @@ class _landingpageState extends State<landingpage> {
                                     padding: const EdgeInsets.all(10),
                                     child: Text(
                                       "Lockdown",
+                                      style: GoogleFonts.lato(
+                                          textStyle: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight:
+                                              FontWeight.w500)),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2 - 10,
+                          height: 200,
+                          child: Card(
+                            color: Colors.white,
+                            elevation: 3,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: InkWell(
+                              splashColor: Colors.greenAccent,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset("assets/earth.gif", height: 130),
+                                  Container(
+                                    padding: const EdgeInsets.all(10),
+                                    child:  Text(
+                                      "Global: ${myNumber.toString()}",
                                       style: GoogleFonts.lato(
                                           textStyle: const TextStyle(
                                               color: Colors.black,
